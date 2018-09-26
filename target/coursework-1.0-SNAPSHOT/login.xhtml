@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <h:outputStylesheet library="css" name="style_1.css"/>
+    <title>Trailer go</title>
+    <link rel="shortcut icon" href="resources/images/01.png" type="image/png"/>
+</h:head>
+<h:body>
+    <div id="image1">
+        <ui:insert name="header">
+            <ui:include src="resources/templates/menu.xhtml"/>
+        </ui:insert>
+
+
+        <ui:insert>
+            <ui:include src="resources/templates/formLogIn.xhtml"/>
+        </ui:insert>
+
+    </div>
+</h:body>
+<h:outputScript library="Js" name="jquery-1.7.2.min.js"/>
+<h:outputScript library="Js" name="Js.js"/>
+<h:outputScript library="Js" name="hcsticky.js"/>
+<h:outputScript library="Js" name="main.js"/>
+
+<script type="text/javascript">
+    $("#Content3").css("height", "520px");
+    $("#image1").css("height", "1330px");
+    $("#slider").css("width", "1225px");
+    $("#Posters").css("width", "1216px");
+    $("#Posters2").css("width", "1216px");
+</script>
+</html>

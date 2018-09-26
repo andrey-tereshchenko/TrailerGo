@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Trailer go</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <h:form>
+            <ui:repeat varStatus="status" value="#{showFilmsController.films}" var="films">
+
+                <div class="Content2">
+                    <p class="Namefilm_content2">
+                        <h:commandLink action="#{showFilmsController.getById(films.filmId)}">
+                            #{films.filmName}
+                        </h:commandLink>
+                    </p>
+
+
+                    <h:commandLink class="bookmark"
+                            rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin' and !(authenticationController.user.films.contains(films)) }"
+                            action="#{authenticationController.addFilmToFavorite(films)}">
+                        <h:graphicImage library="images" name="plus_fav.gif"/>
+                    </h:commandLink>
+                    <h:commandLink class="bookmark"
+                                   rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin' and authenticationController.user.films.contains(films) }"
+                                   action="#{authenticationController.removeFromFavorite(films)}">
+                        <h:graphicImage library="images" name="minus_fav.gif"/>
+                    </h:commandLink>
+
+
+                    <div class="Rating">
+                        <h:outputText id="mark" style="    margin-left: -78px;font-size:14px; color:#fff;"
+                                      value="Рейтинг: #{films.rating}/5"/>
+                        <br/>
+                        <h:outputText value="Ваша оценка:"
+                                      rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin'}"
+                                      style="margin-top: 7px;float: left;margin-left: -80px;font-size: 14px;color: #fff;"/>
+                        <p:growl
+                                rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin' }"
+                                id="messages"
+                                showDetail="true"/>
+
+                        <h:panelGrid style="float: left;margin-left: -6px;"
+                                     rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin'}"
+                                     columns="2"
+                                     cellpadding="5">
+                            <p:rating value="#{showFilmsController.rates[status.index]}"
+                                      readonly="#{showFilmsController.findRateForFilm(films.filmId) != 0}"/>
+                        </h:panelGrid>
+
+                        <h:commandButton
+                                rendered="#{(authenticationController.user != null) and (showFilmsController.findRateForFilm(films.filmId) == 0) and authenticationController.user.name != 'Admin' }"
+                                value="Submit" update="mark" action="#{showFilmsController.rateFilm(films.filmId)}"
+                                style="margin:5px"/>
+                    </div>
+
+                    <div class="Image_content2">
+                        <h:graphicImage library="images" name="#{films.filmId}.jpg"/>
+                    </div>
+
+                    <div id="Text">
+                        <p class="Text_content2">
+                            #{films.shortDescription}
+                        </p>
+
+
+                        <p class="Info_content2">
+                            Год випуска:
+                            <h:commandLink action="#{showFilmsController.getFilmsByYear(films.yearReliaze)}">
+                                #{films.yearReliaze}
+                            </h:commandLink>
+                        </p>
+
+
+                        <p class="Info_content2">
+                            Страна:
+                            <ui:repeat value="#{films.country.toArray()}" var="country">
+                                <h:commandLink action="#{showFilmsController.getFilmsByCountry(country.countryName)}">
+                                    #{country.countryName}
+                                </h:commandLink>
+                            </ui:repeat>
+                        </p>
+
+                        <p class="Info_content2">
+                            Жанр:
+                            <ui:repeat value="#{films.genres.toArray()}" var="genre">
+                                <h:commandLink action="#{showFilmsController.getFilmsByGenre(genre.genreName)}">
+                                    #{genre.genreName}
+                                </h:commandLink>
+                            </ui:repeat>
+                        </p>
+                    </div>
+
+                    <div class="Watch">
+                        <h:commandLink action="#{showFilmsController.getById(films.filmId)}">
+                            <p style="color:#FFF;position:relative;left:20px;top:5px;font-size: 16px;">Смотреть трейлер</p>
+                        </h:commandLink>
+                    </div>
+                    <h:commandLink rendered="#{authenticationController.user.name == 'Admin'}"
+                                   action="#{showFilmsController.removeFilm(films.filmId)}">
+                        <div class="Delete">
+                            <p style="color:#FFF;position:relative;left:20px;top:5px;font-size: 16px;">Удалить</p>
+                        </div>
+                    </h:commandLink>
+                    <h:commandLink
+                            rendered="#{authenticationController.user.name == 'Admin'}"
+                            action="#{editFilmController.edit(films.filmId)}">
+                        <div class="Edit">
+                            <p style="color:#FFF;position:relative;left:20px;top:5px;font-size: 16px;">Редактировать</p>
+                        </div>
+                    </h:commandLink>
+
+                </div>
+            </ui:repeat>
+        </h:form>
+    </ui:composition>
+</h:body>
+</html>

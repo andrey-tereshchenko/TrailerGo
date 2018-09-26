@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Trailer go</title>
+    <link rel="shortcut icon" href="resources/images/01.png" type="image/png"/>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:outputLabel for="filmName" value="Название:"/>
+        <p:inputText required="true" class="inputData" id="filmName" value="#{addFilmController.film.filmName}"/>
+        <br/>
+        <p:outputLabel for="popup" value="Примьера:"/>
+        <p:calendar required="true" class="inputData" id="popup" value="#{addFilmController.date}">
+            <f:convertDateTime type="date" dateType="short"/>
+        </p:calendar>
+        <br/>
+        <p:outputLabel for="reference" value="Ссылка на видео:"/>
+        <p:inputText required="true" class="inputData" id="reference" value="#{addFilmController.film.referencesVideo}"/>
+        <br/>
+        <p:outputLabel for="fee" value="Гонорар:"/>
+        <p:inputText required="true" class="inputData" id="fee" value="#{addFilmController.film.fee}"/>
+        <br/>
+        <p:outputLabel for="year" value="Год выхода:"/>
+        <p:inputText required="true" class="inputData" id="year" value="#{addFilmController.film.yearReliaze}"/>
+        <br/>
+        <p:outputLabel for="description" value="Описание:"/>
+        <p:inputTextarea required="true" class="inputData" id="description" value="#{addFilmController.film.description}" rows="6"
+                         cols="33"/>
+        <br/>
+        <br/>
+        <h:commandButton action="#{addFilmController.addFilm()}" value="Добавить фильм"/>
+    </h:form>
+    <h:form id="grid1">
+        <h3>Actors:</h3>
+        <ui:repeat value="#{addFilmController.actors.toArray()}" var="actor1">
+            #{actor1.actorName}
+            #{actor1.actorSurname}
+        </ui:repeat>
+
+        <h:panelGrid cellpadding="5" columns="2" style="margin-bottom:10px">
+            <f:facet name="header">
+                <p:messages id="msgs"/>
+            </f:facet>
+
+            <p:outputLabel for="firstname" value="Имя:"/>
+            <p:inputText  required="true" id="firstname" value="#{addFilmController.actor.actorName}"/>
+
+            <p:outputLabel for="surname" value="Фамилия:"/>
+            <p:inputText id="surname" value="#{addFilmController.actor.actorSurname}" required="true"
+                         requiredMessage="Surname is required."/>
+        </h:panelGrid>
+
+        <p:commandButton value="Добавить" id="btnAll" process="@all" update="grid1"
+                         actionListener="#{addFilmController.addActor()}"/>
+
+    </h:form>
+
+    <h:form id="grid2">
+        <h3>Directors:</h3>
+        <ui:repeat value="#{addFilmController.directors.toArray()}" var="director">
+            #{director.directorName}
+            #{director.directorSurname}
+        </ui:repeat>
+        <h:panelGrid cellpadding="5" columns="2" style="margin-bottom:10px">
+            <f:facet name="header">
+                <p:messages id="msgs2"/>
+            </f:facet>
+
+            <p:outputLabel for="directorName" value="Имя:"/>
+            <p:inputText required="true" id="directorName" value="#{addFilmController.director.directorName}"/>
+
+            <p:outputLabel for="directorSurname" value="Фамилия:"/>
+            <p:inputText id="directorSurname" value="#{addFilmController.director.directorSurname}" required="true"
+                         requiredMessage="Surname is required."/>
+        </h:panelGrid>
+
+        <p:commandButton value="Добавить" id="btnAll2" process="@all" update="grid2"
+                         actionListener="#{addFilmController.addDirector()}"/>
+    </h:form>
+
+    <h:form id="grid3">
+        <h3>Genres:</h3>
+        <ui:repeat value="#{addFilmController.genres.toArray()}" var="genre">
+            #{genre.genreName}
+        </ui:repeat>
+        <h:panelGrid cellpadding="5" columns="2" style="margin-bottom:10px">
+            <f:facet name="header">
+            <p:messages id="msgs3"/>
+            </f:facet>
+
+            <p:outputLabel for="genre" value="Жанр:"/>
+            <p:inputText id="genre" value="#{addFilmController.genre.genreName}" required="true"
+                         requiredMessage="Surname is required."/>
+        </h:panelGrid>
+
+        <p:commandButton value="Добавить" id="btnAll3" process="@all" update="grid3"
+                         actionListener="#{addFilmController.addGenre()}"/>
+    </h:form>
+
+    <h:form id="grid4">
+        <h3>Countries:</h3>
+        <ui:repeat value="#{addFilmController.countries.toArray()}" var="country">
+            #{country.countryName}
+        </ui:repeat>
+        <h:panelGrid cellpadding="5" columns="2" style="margin-bottom:10px">
+            <f:facet name="header">
+                <p:messages id="msgs4"/>
+            </f:facet>
+
+            <p:outputLabel for="country" value="Страна:"/>
+            <p:inputText id="country" value="#{addFilmController.country.countryName}" required="true"
+                         requiredMessage="Surname is required."/>
+        </h:panelGrid>
+
+        <p:commandButton value="Добавить" id="btnAll4" process="@all" update="grid4"
+                         actionListener="#{addFilmController.addCountry()}"/>
+    </h:form>
+</h:body>
+</html>

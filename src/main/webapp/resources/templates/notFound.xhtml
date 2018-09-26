@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Trailer go</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <h:form>
+            <div id="Content3">
+                <div class="berrors fix_grid">
+                    <b>Информация</b><br/>
+                    К сожалению, поиск по вашему запросу не дал никаких результатов. Попробуйте изменить или сократить Ваш запрос.
+                </div>
+
+                <div class="box_in">
+                    <h1 class="title">Поиск по сайту</h1>
+                    <div class="searchTable">
+                        <h:form style="margin: auto;">
+                            <h:inputText value="#{showFilmsController.filmName}" class = "inputElement"/>
+                            <br/>
+                            <h:commandButton value="Начать поиск" action="#{showFilmsController.getFilmByName()}" class = "commandButton"/>
+                            <h:commandButton value="Расширенный поиск" action="search_full" class = "commandButton"/>
+                        </h:form>
+                    </div>
+                </div>
+
+            </div>
+        </h:form>
+    </ui:composition>
+</h:body>
+</html>

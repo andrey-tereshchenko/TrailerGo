@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Trailer go</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div id="header" class="A1">
+
+            <div id="Logos">
+                <h3 style="margin-bottom:0px;"><span style="color:#00aeef;">TRAILER</span>GO</h3>
+            </div>
+
+            <h:form>
+                <h:commandButton style="float: left; margin-left: 535px;margin-top: 15px; background-color: #a1a1a1" rendered="#{authenticationController.user == null}" value="Авторизация" action="#{showFilmsController.getFormPage()}"/>
+                <h:commandLink style="float: left; font-size: 16px;margin-top: 20px;margin-left: 20px" rendered="#{authenticationController.user != null}" value="#{authenticationController.user.name}"/>
+                <h:commandLink style="float: left; font-size: 16px;margin-top: 20px;margin-left: 20px" rendered="#{authenticationController.user != null and authenticationController.user.name != 'Admin' }" value="Избранное(#{authenticationController.getCountFavoriteFilm()})" action="#{showFilmsController.getFilmsByFavorite()}"/>
+                <h:commandButton style="float: left; margin-top: 15px;margin-left: 20px; background-color: #a1a1a1"  rendered="#{authenticationController.user != null}" value="Виход" action="#{authenticationController.logout()}"/>
+                <h:commandButton style="float: left; margin-top: 15px;margin-left: 10px; background-color: #a1a1a1"  rendered="#{authenticationController.user == null}"  value="Регистрация" action="#{showFilmsController.getRegistration()}"/>
+            </h:form>
+            <h:form class="searchForm">
+
+                <h:inputText class="InputText"
+                             value="#{showFilmsController.filmName}"/>
+                <h:commandButton type="submit" action="#{showFilmsController.getFilmByName()}"
+                                 id="ok" name="ok" value="Найти"/>
+            </h:form>
+
+
+        </div>
+
+
+        <div id="image2">
+
+        </div>
+
+        <h:form>
+            <div class="help">
+                <h:commandLink action="#{showFilmsController.getMainPage()}">
+                    <div id="MainSt"><p
+                            style="color:#FFF;font-size:18px;margin-left:5px;margin-top:0px;margin-bottom:0px;">Главная</p>
+                    </div>
+                </h:commandLink>
+
+                <h:commandLink style="color:#FFF;font-size:16px;" action="#{showFilmsController.getSearchPage()}">
+                    <div class="sub_poisk">Расширенный поиск
+                    </div>
+                </h:commandLink>
+                <h:commandLink rendered="#{authenticationController.user.name == 'Admin'}" style="color:#FFF;font-size:16px;" action="addFilm">
+                    <div class="sub_poisk">Создать фильм
+                    </div>
+                </h:commandLink>
+
+                <div id="slider">
+
+                    <div id="Posters" class="slide"><!-- new -->
+
+                        <h:commandLink action="#{showFilmsController.getById(9)}">
+                            <div id="Sherlok" class="my-flex-block">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(10)}">
+                            <div id="Hobbit" class="my-flex-block">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(11)}">
+                            <div id="Sea" class="my-flex-block">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(12)}">
+                            <div id="WhoIsI" class="my-flex-block">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(12)}">
+                            <div id="Marsianin" class="my-flex-block">
+                            </div>
+                        </h:commandLink>
+
+                    </div>
+
+                    <div id="Posters2" class="slide"><!-- new -->
+
+                        <h:commandLink action="#{showFilmsController.getById(13)}">
+                            <div id="Unbroken" class="my-flex-block2">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(14)}">
+                            <div id="Warcraft" class="my-flex-block2">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(15)}">
+                            <div id="Igri" class="my-flex-block2">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(15)}">
+                            <div id="Civial" class="my-flex-block2">
+                            </div>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getById(16)}">
+                            <div id="Inception" class="my-flex-block2">
+                            </div>
+                        </h:commandLink>
+
+
+                    </div>
+                </div>
+
+                <div id = "Roll" class="Content1">
+
+                    <p style="color:#FFF;font-size:22pt;margin-left:10px;margin-top:10px;">
+                        Навигация
+                    </p>
+                    <hr style="position:relative;top:-25px;color: #FFF;background-color: #FFF; height: 1px;border:none;"/>
+                    <div id="Category">
+                        <p style="color:#FFF;font-size:22px;position:relative;top:-40px;left:10px;line-height: 10pt;">По категории</p>
+                        <br/>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Биографический')}">
+                            <p class="p02">Биографические</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Боевик')}">
+                            <p class="p02">Боевики</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Вестерн')}">
+                            <p class="p02">Вестерны</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Военный')}">
+                            <p class="p02">Военные</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Детектив')}">
+                            <p class="p02">Детективы</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Фантастика')}">
+                            <p class="p02">Фантастика</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Фэнтези')}">
+                            <p class="p02">Фэнтези</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Комедия')}">
+                            <p class="p02">Комедии</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Драма')}">
+                            <p class="p02">Драмы</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Документальный')}">
+                            <p class="p02">Документальные</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Ужасы')}">
+                            <p class="p02">Ужасы</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Спортивный')}">
+                            <p class="p02">Спортивные</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Мелодрама')}">
+                            <p class="p02">Мелодрамы</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Мультфильм')}">
+                            <p class="p02">Мультфильмы</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Приключения')}">
+                            <p class="p02">Приключения</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Триллер')}">
+                            <p class="p02">Триллеры</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre('Исторический')}">
+                            <p class="p02">Исторические</p>
+                        </h:commandLink>
+                    </div>
+
+                    <div id="Year">
+                        <p style="color:#FFF;font-size:22px;position:relative;top:-40px;left:10px;line-height: 10pt;">По годам</p>
+                        <br/>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2018')}">
+                            <p class="p02">2018</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2017')}">
+                            <p class="p02">2017</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2016')}">
+                            <p class="p02">2016</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2015')}">
+                            <p class="p02">2015</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2014')}">
+                            <p class="p02">2014</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByYear('2013')}">
+                            <p class="p02">2013</p>
+                        </h:commandLink>
+                    </div>
+
+                    <div id="Country">
+                        <p style="color:#FFF;font-size:22px;position:relative;top:-40px;left:10px;line-height: 10pt;">По странам</p>
+                        <br/>
+                        <h:commandLink action="#{showFilmsController.getFilmsByCountry('США')}">
+                            <p class="p02">США</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByCountry('Россия')}">
+                            <p class="p02">Россия</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByCountry('Франция')}">
+                            <p class="p02">Франция</p>
+                        </h:commandLink>
+                        <h:commandLink action="#{showFilmsController.getFilmsByCountry('Великобритания')}">
+                            <p class="p02">Великобритания</p>
+                        </h:commandLink>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+    </ui:composition>
+</h:body>
+</html>

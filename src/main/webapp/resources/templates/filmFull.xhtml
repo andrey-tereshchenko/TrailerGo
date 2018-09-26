@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Trailer go</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div id="Content3">
+            <h:form>
+                <p class="Namefilm_content3">
+                    #{showFilmsController.film.filmName}
+                </p>
+
+                <div class="Image_content2">
+                    <h:graphicImage library="images" name="#{showFilmsController.film.filmId}.jpg"/>
+                </div>
+
+                <div id="Text3">
+                    <p class="Text_content2"> #{showFilmsController.film.description}</p>
+                </div>
+
+                <p class="p2">
+                    Год випуска:
+                    <h:commandLink action="#{showFilmsController.getFilmsByYear(showFilmsController.film.yearReliaze)}">
+                        #{showFilmsController.film.yearReliaze}
+                    </h:commandLink>
+                </p>
+
+                <p class="p3">
+                    Страна:
+                    <ui:repeat value="#{showFilmsController.film.country.toArray()}" var="country">
+                        <h:commandLink action="#{showFilmsController.getFilmsByCountry(country.countryName)}">
+                            #{country.countryName}
+                        </h:commandLink>
+                    </ui:repeat>
+                </p>
+
+                <p class="p3">
+                    Жанр:
+                    <ui:repeat value="#{showFilmsController.film.genres.toArray()}" var="genre">
+                        <h:commandLink action="#{showFilmsController.getFilmsByGenre(genre.genreName)}">
+                            #{genre.genreName}
+                        </h:commandLink>
+                    </ui:repeat>
+
+                </p>
+
+                <p class="p3">
+                    Премьера:
+                    #{showFilmsController.film.premiere}
+                </p>
+                <p class="p3">
+                    Режиссер:
+                    <ui:repeat value="#{showFilmsController.film.directors.toArray()}" var="director">
+                        #{director.directorName}
+                        #{director.directorSurname}
+                        <h:outputText value="&#160;"/>
+                    </ui:repeat>
+                </p>
+                <p class="p3">
+                    Актеры:
+                    <ui:repeat value="#{showFilmsController.film.actors.toArray()}" var="actor">
+                        #{actor.actorName}
+                        #{actor.actorSurname}
+                        <h:outputText value="&#160;"/>
+                    </ui:repeat>
+
+                </p>
+
+
+                <div class="Video">
+                    <iframe src="#{showFilmsController.film.referencesVideo}" width='560' height='315'
+                            frameborder='0'></iframe>
+
+                </div>
+            </h:form>
+            <h:form id = "commentForm">
+                <p:commandButton style="margin-bottom: 3px; margin-top: 93px;"
+                                 rendered="#{authenticationController.user != null}"
+                                 value="Добавить коментарий" update="commentForm"
+                                 actionListener="#{showFilmsController.addComment(showFilmsController.film.filmId)}"/>
+                <p:inputTextarea style=" height: 70px;width: 610px;margin-bottom: -8px;"
+                                 rendered="#{authenticationController.user != null}"
+                                 value="#{showFilmsController.comment}" rows="6" cols="33"/>
+                <div class="CommentDiv">
+                    <ui:repeat id="comments" value="#{showFilmsController.getSortedComment()}" var="comment">
+                        <div class="Comment">
+                            <p>User : #{authenticationController.getUserByUserId(comment.userId).name} #{authenticationController.getUserByUserId(comment.userId).surname}</p>
+                            <p>Date : #{comment.date}</p>
+                            <hr/>
+                            <h:outputText value="#{comment.value}" escape="false"/>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:form>
+        </div>
+
+
+    </ui:composition>
+</h:body>
+</html>

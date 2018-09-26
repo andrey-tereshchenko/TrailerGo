@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Trailer go</title>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div id="Content3">
+            <h:form method='post' class='reg-form'>
+                <p:messages id="msgs" icon="ui-icon-check" />
+
+                <h2 style=" margin-left: 35px;margin-top: 10px;color:#fff;">Регистрация</h2>
+                <h:panelGrid id="grid" class = "Registration" columns="3" cellpadding="5">
+
+                    <p:outputLabel for="firstname" value="Имя:"/>
+                    <p:inputText id="firstname" required="true" value="#{registrationController.acount.users.name}"/>
+                    <p:message for="firstname" display="icon" />
+
+                    <p:outputLabel for="surname" value="Фамилия:"/>
+                    <p:inputText id="surname" required="true" value="#{registrationController.acount.users.surname}"/>
+                    <p:message for="surname" display="icon" />
+
+                    <p:outputLabel for="login" value="Логин:"/>
+                    <p:inputText id="login" required="true" value="#{registrationController.acount.login}"/>
+                    <p:message for="login" display="icon" />
+
+                    <p:outputLabel for="pwd1" value="Пароль:"/>
+                    <p:password id="pwd1" value="#{registrationController.acount.password}" match="pwd2"
+                                label="Password 1"
+                                required="true"/>
+                    <p:message for="pwd1" display="icon" />
+
+                    <p:outputLabel for="pwd2" value="Повторите пароль:"/>
+                    <p:password id="pwd2" value="#{registrationController.acount.password}" label="Password 2"
+                                required="true"/>
+                    <p:message for="pwd2" display="icon" />
+                </h:panelGrid>
+                <div class="form-row">
+                    <p:commandButton  update="grid" style="margin-left: 35px;" value="Добавить" actionListener="#{registrationController.addAcount()}"
+                                     ajax="false"/>
+                </div>
+
+            </h:form>
+        </div>
+    </ui:composition>
+</h:body>
+</html>
